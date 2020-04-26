@@ -69,8 +69,14 @@
     const divKey=document.querySelector(`div[data-key="${dataKey}"]`);
     audio.currentTime=0; // reset the audio timer
     audio.play();
-    divKey.classList.add('playing'); //add a css class to the current div
+    divKey.classList.add('playing'); //add a css class "playing" to the current div
   });
+
+  const keys = document.querySelectorAll('.key'); //array with all the div with class "key"
+  //event listening to the end of the transition to remove the css class "playing"
+  keys.forEach(key => key.addEventListener('transitionend',()=>{
+    key.classList.remove('playing');
+  }))
 </script>
 
 
