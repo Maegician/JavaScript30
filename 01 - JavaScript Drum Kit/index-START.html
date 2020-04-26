@@ -61,14 +61,15 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  // event listening to the key we press
   window.addEventListener('keydown',function(e){
     const dataKey=e.keyCode;
     const audio=document.querySelector(`audio[data-key="${dataKey}"]`);
-    if(!audio) return;
+    if(!audio) return; // stop the function if the key does not fit to the audios
     const divKey=document.querySelector(`div[data-key="${dataKey}"]`);
-    audio.currentTime=0;
+    audio.currentTime=0; // reset the audio timer
     audio.play();
-    divKey.classList.add('playing');
+    divKey.classList.add('playing'); //add a css class to the current div
   });
 </script>
 
