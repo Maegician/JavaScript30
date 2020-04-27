@@ -64,7 +64,7 @@
       top: 50%;
       transform-origin: 100%;
       transform: rotate(90deg);
-      transition: all .5s;
+      transition: all .05s;
       transition-timing-function:cubic-bezier(.1,2.7,0.58,1);
     }
 
@@ -72,17 +72,27 @@
 
   <script>
    //objet date, comme je ne connaissais pas cet objet, je test son fonctionnement et le type de données renvoyées
-    let today=new Date();
-    let hours=today.getHours();
-    let minutes=today.getMinutes();
-    let seconds=today.getSeconds();
+    // let today=new Date();
+    // let hours=today.getHours();
+    // let minutes=today.getMinutes();
+    // let seconds=today.getSeconds();
 
-    console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
+    // console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
     // > il est 18 heure 12 minutes et 21 secondes.
-    console.log(typeof(today), typeof(hours), typeof(minutes), typeof(seconds));
+    // console.log(typeof(today), typeof(hours), typeof(minutes), typeof(seconds));
     // > object number number number
     
 
+  //je créer maintenant une fonction que j'utiliserai après dans un intervalle pour récupérer l'heure toutes les secondes (puisque l'aiguille des secondes va bouger toutes les secondes)
+  function getCurrentTime(){
+    const today=new Date();
+    const hours=today.getHours();
+    const minutes=today.getMinutes();
+    const seconds=today.getSeconds();
+    console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
+  }
+
+  setInterval(getCurrentTime, 1000);
   </script>
 </body>
 </html>
