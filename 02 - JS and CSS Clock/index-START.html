@@ -92,10 +92,18 @@
     // console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
     
     //on convertit les résultats obtenus en degré puisque chaque aiguille tourne sur 360 degrés
-    const hoursDeg=(hours/60)*360;
-    const minutesDeg=(minutes/60)*360;
-    const secondsDeg=(seconds/60)*360;
-    console.log(hoursDeg, minutesDeg, secondsDeg);
+    const hoursDeg=90+(hours/60)*360;
+    const minutesDeg=90+(minutes/60)*360;
+    const secondsDeg=90+(seconds/60)*360;
+    // console.log(hoursDeg, minutesDeg, secondsDeg);
+
+    //on applique le résultat obtenu
+    //on sélectionne la div de chaque aiguille
+    //on lui applique la valeur en degré au style transform:rotate()
+    //on test d'abord avec les secondes puisque la valeur va changer à chaque seconde, permettant de vérifier rapidement si le code marche ou non
+    let secondsDiv=document.querySelector('.second-hand');
+    // console.log(secondsDiv);
+    secondsDiv.style.transform=`rotate(${secondsDeg}deg)`;
   }
 
   setInterval(getCurrentTime, 1000);
