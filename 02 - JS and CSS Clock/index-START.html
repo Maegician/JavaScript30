@@ -67,7 +67,18 @@
   </style>
 
   <script>
+   //objet date, comme je ne connaissais pas cet objet, je test son fonctionnement et le type de données renvoyées
+    let today=new Date();
+    let hours=today.getHours();
+    let minutes=today.getMinutes();
+    let seconds=today.getSeconds();
 
+    console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`)
+    // il est 18 heure 12 minutes et 21 secondes.
+    console.log(typeof(today), typeof(hours), typeof(minutes), typeof(seconds))
+    // object number number numbe
+    
+  
 
   </script>
 </body>
