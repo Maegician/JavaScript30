@@ -89,7 +89,13 @@
     const hours=today.getHours();
     const minutes=today.getMinutes();
     const seconds=today.getSeconds();
-    console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
+    // console.log(`il est ${hours} heure ${minutes} minutes et ${seconds} secondes.`);
+    
+    //on convertit les résultats obtenus en degré puisque chaque aiguille tourne sur 360 degrés
+    const hoursDeg=(hours/60)*360;
+    const minutesDeg=(minutes/60)*360;
+    const secondsDeg=(seconds/60)*360;
+    console.log(hoursDeg, minutesDeg, secondsDeg);
   }
 
   setInterval(getCurrentTime, 1000);
