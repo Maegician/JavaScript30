@@ -62,7 +62,11 @@
     const blurInput=document.querySelector('#blur');
     // vérification des constantes
     console.log(baseInput, spacingInput, blurInput);
-    
+
+    //test de l'évènement change pour capturer le mouvement de dragging sur les input range
+    baseInput.addEventListener('change',function(e){
+      console.log(e);
+    })
 
   </script>
 
