@@ -18,7 +18,7 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="img-ex3.jpg">
 
   <style>
 
@@ -65,7 +65,7 @@
     const spacingInput=document.querySelector('#spacing');
     const blurInput=document.querySelector('#blur');
     // vérification des constantes
-    console.log(baseInput, spacingInput, blurInput);
+    // console.log(baseInput, spacingInput, blurInput);
 
     //test de l'évènement change pour capturer le mouvement de dragging sur les input range
     baseInput.addEventListener('change',function(e){
@@ -73,6 +73,20 @@
       console.log(baseValue);
       document.documentElement.style.setProperty('--base', 
       baseValue);
+    })
+
+    spacingInput.addEventListener('change',function(e){
+      let spacingValue = this.value;
+      console.log(spacingValue);
+      document.documentElement.style.setProperty('--spacing', 
+      `${spacingValue}px`);
+    })
+
+    blurInput.addEventListener('change',function(e){
+      let blurValue = this.value;
+      console.log(blurValue);
+      document.documentElement.style.setProperty('--blur', 
+      `${blurValue}px`);
     })
 
   </script>
