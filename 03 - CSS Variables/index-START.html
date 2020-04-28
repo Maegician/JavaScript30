@@ -28,6 +28,10 @@
       --blur:10px;
     }
 
+    .hl{
+      color: var(--base);
+    }
+
     img{
       padding: var(--spacing);
       background-color: var(--base);
@@ -67,7 +71,8 @@
     baseInput.addEventListener('change',function(e){
       let baseValue = this.value;
       console.log(baseValue);
-      // document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
+      document.documentElement.style.setProperty('--base', 
+      baseValue);
     })
 
   </script>
