@@ -81,7 +81,7 @@
     .panel.open {
       font-size: 40px;
     }
-    /*  */
+  /*  */
     .panel p:nth-child(1){
       transform: translate(0,-100%);
     }
@@ -90,6 +90,18 @@
       transform: translate(0,100%);
     }
     /* peut-être plus indiqué d'utiliser les sélecteurs last/first child, au cas où lors d'une maintenance future des paragraphes sont ajoutés dans les div .panel*/
+
+    /* maintenant on veut que les premiers et derniers p réaparaissent quand on clique sur le panel concerné */
+    /* l'effet de transition est déjà paramétré pour la classe panel */
+    /* on va ajouter une classe qui change les paramètres de la fonction translate()*/
+
+    .panel.onclick p:nth-child(1){
+      transform: translate(0,0);
+    }
+
+    .panel.onclick p:nth-child(3){
+      transform: translate(0,0);
+    }
 
   </style>
 
