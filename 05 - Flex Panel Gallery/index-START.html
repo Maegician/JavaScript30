@@ -135,7 +135,16 @@
   </div>
 
   <script>
+      //maintenant on veut que la classe "onclick" n'apparaisse que quand on clique dessus
+      //on doit également pouvoir la faire disparaître en cliquant à nouveau > toggle
 
+    let panels=document.querySelectorAll(".panel");
+
+    function displayPanel(){
+      this.classList.toggle('onclick');
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', displayPanel));
 
 
   </script>
