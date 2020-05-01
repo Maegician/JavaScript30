@@ -15,7 +15,61 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+  //on a donc notre liste de villes au format json
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  //ce qui m'intéresse, ce sont les valeurs de "city" et "state"
+
+  //j'ai préféré décortiquer la correction car je n'étais pas familière avec cette façon d'utiliser AJAX
+
+  const cities = []; //on déclare un tableau vide pour y ajouter la liste des villes
+
+  fetch(endpoint) //méthode qui retourne une promesse censée résoudre la response de la requête
+  .then(blob => blob.json()) //lit la response jusqu'à la fin, renvoie  résultat en json
+  .then(data => cities.push(...data));//push le résultat dans le tableau ("..." spread pour éviter de push un tableau dans un tableau)
+
+  console.log(cities);//je regarde à quoi ressemble le tableau obtenu
+  //cela me renvoie bien un tableau avec les 1000 villes (objets) de l'API
+
+//fonction qui compare la saisi de l'utilisateur avec les données du tableau (city et place)
+function findMatches(wordToMatch, cities) {
+  return cities.filter(place => {
+    // here we need to figure out if the city or state matches what was searched
+    const regex = new RegExp(wordToMatch, 'gi'); //déclare la regex, g modifier: global. All matches (don't return on first match) i modifier: insensitive (insensible à la casse)
+    return place.city.match(regex) || place.state.match(regex)
+  });
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+//fonction qui affiche le résultat de la fonction findMatches()
+function displayMatches() {
+  const matchArray = findMatches(this.value, cities); //on appel la fonction findMatches avec en paramètre la valeur de l'input .search, on stock le resultat dans le tableau matchArray
+  const html = matchArray.map(place => {
+    const regex = new RegExp(this.value, 'gi'); //on déclare le regex pour remplacer une partie de la string obtenue par la même string mais avec une classe h1
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+    //fonction numberWithCommas rajoute des virgules dans les nombre pour les rendre plus lisibles
+  }).join(''); //joins tous les éléments du tableau en une chaîne de caractère
+  suggestions.innerHTML = html; //on met tous les résultats obtenus dans la balise ul .suggestion
+}
+
+//on déclare une constante qui sélectionne l'input .search
+//on déclare une constante qui sélectionne l'ul .suggestions
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+//on écoute les évènements change et keyup sur searchInput et on déclenche la fonction displayMatches
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
 
 </script>
 </body>
