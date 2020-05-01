@@ -81,6 +81,15 @@
     .panel.open {
       font-size: 40px;
     }
+    /*  */
+    .panel p:nth-child(1){
+      transform: translate(0,-100%);
+    }
+
+    .panel p:nth-child(3){
+      transform: translate(0,100%);
+    }
+    /* peut-être plus indiqué d'utiliser les sélecteurs last/first child, au cas où lors d'une maintenance future des paragraphes sont ajoutés dans les div .panel*/
 
   </style>
 
