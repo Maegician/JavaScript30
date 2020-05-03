@@ -6,7 +6,63 @@
 </head>
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
+
 <script>
+const canvas = document.querySelector('#draw'); //on stocke le canvas dans la constante canvas
+const ctx = canvas.getContext('2d'); //retourne l'objet contexte de dessin pour pouvoir dessiner dedans
+canvas.width = window.innerWidth; //adapte la largeur du canvas à la taille de la fenêtre
+canvas.height = window.innerHeight; //adapte la hauteur du canvas à la taille de la fenêtre
+ctx.strokeStyle = '#BADA55';//spécifie la couleur à utiliser pour dessiner (obligatoire au début)
+ctx.lineJoin = 'round'; //détermine la forme à utiliser pour joindre deux segments de ligne à leur intersection
+ctx.lineCap = 'round'; //détermine la façon dont les extrémités de chaque ligne sont dessinées 
+ctx.lineWidth = 100; //détermine la largeur de la ligne
+ctx.globalCompositeOperation = 'multiply'; //permet de paramétrer un mode de fusion
+
+let isDrawing = false; //pour qu'on ne dessine que quand le bouton de la souris est enfoncé
+//variables qui serviront à stocker la position x et y de la souris lorsque l'utilisateur dessine
+let lastX = 0;
+let lastY = 0;
+let hue = 0; //variable qui servira à changer la couleur pour l'effet "arc-en-ciel"
+let direction = true; //booléen qui servira à varier la largeur du pinceau
+
+function draw(e) {
+  if (!isDrawing) return; // stop the fn from running when they are not moused down
+  console.log(e);
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; //permet la couleur "arc-en-ciel", avec la variable "hue" qui s'incrémente à chaque fin de la fonction
+  ctx.beginPath(); //indique qu'on commence le dessin
+  // start from
+  ctx.moveTo(lastX, lastY);//indique le point de départ de la ligne
+  // go to
+  ctx.lineTo(e.offsetX, e.offsetY);//indique le point d'arrivé de la ligne
+  ctx.stroke(); //indique qu'on finit le dessin
+  [lastX, lastY] = [e.offsetX, e.offsetY]; //met à jour le point de départ de la ligne avec la dernière valeur du point d'arrivé
+
+  hue++;
+  if (hue >= 360) {
+    hue = 0; //remet la variable "hue" à zéro une fois qu'on a atteint la limite de la palette 
+  }
+  if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) { //change le booléen direction si la largeur du pinceau devient trop grosse ou trop petite
+    direction = !direction;
+  }
+
+  if(direction) { //incrémente ou décrémente la largeur du pinceau en fonction du booléen direction
+    ctx.lineWidth++;
+  } else {
+    ctx.lineWidth--;
+  }
+
+}
+
+canvas.addEventListener('mousedown', (e) => {//la fonction pour dessiner est lancée avec l'évènement mousemove, mais isDrawing ne passe en true que si on reste appuyé sur le bouton de la souris, il faut donc les 2 évènements pour dessiner
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY]; //met à jour le point de départ de la ligne avec la position de la souris
+});
+
+
+canvas.addEventListener('mousemove', draw); // écoute l'évènement mousemove et lance la fonction pour dessiner
+canvas.addEventListener('mouseup', () => isDrawing = false);// écoute l'évènement mouseup et stop la fonction pour dessiner en passant la variable isDrawing sur false
+canvas.addEventListener('mouseout', () => isDrawing = false); //idem
+
 </script>
 
 <style>
